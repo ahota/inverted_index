@@ -63,8 +63,9 @@ which we can then parse with Python. The plot.py script in out/ allows you to
 generate a histogram of word counts. We visually analyzed this histogram to
 find our stop word threshold of 2000.
 
-[](https://raw.githubusercontent.com/ahota/inverted_index/master/out/words.png
-"Plot of the 20-50th most frequent words")
+<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/words.png"
+alt="Plot of the 20-50th most frequent words"
+width="500px">
 
 The second Hadoop job is InvertedIndex. This computes the inverted index of
 words in the corpus using the .num files. Each mapper receives a line. Since
@@ -72,10 +73,11 @@ each line contains the document ID and line number as its first two "words",
 we can easily determine these two aspects of the offset key for all words in
 the line. As the mapper iterates through words in the line, it increments a
 current word counter, which is the third element of a word's offset. These
-three values are saved as a Hadoop Text object in this format: `<doc_id>-
-<line_num>-<word_num>`. In the reducing phase, the reducer simply counts the
-occurrence of incoming words. If the occurrence is higher than our threshold,
-it is considered a stop word and is discarded.
+three values are saved as a Hadoop Text object in this format: 
+`<doc_id>-<line_num>-<word_num>`.
+In the reducing phase, the reducer simply counts the occurrence of incoming
+words. If the occurrence is higher than our threshold, it is considered a stop
+word and is discarded.
 
 ### Post-processing
 The output from the Hadoop jobs are text files. During the post-processing
@@ -111,14 +113,14 @@ item will open Vim at that line.
 ## Examples
 If we query for `romeo and juliet`, we get 8 results:
 ```
-# romeo\_and\_juliet.txt, line 1
-# romeo\_and\_juliet.txt, line 2562
-# romeo\_and\_juliet.txt, line 2888
-# romeo\_and\_juliet.txt, line 4277
-# romeo\_and\_juliet.txt, line 4327
-# romeo\_and\_juliet.txt, line 4416
-# romeo\_and\_juliet.txt, line 4428
-# romeo\_and\_juliet.txt, line 4430
+# romeo_and_juliet.txt, line 1
+# romeo_and_juliet.txt, line 2562
+# romeo_and_juliet.txt, line 2888
+# romeo_and_juliet.txt, line 4277
+# romeo_and_juliet.txt, line 4327
+# romeo_and_juliet.txt, line 4416
+# romeo_and_juliet.txt, line 4428
+# romeo_and_juliet.txt, line 4430
 ```
 
 Note that this does not search for "Romeo and Juliet", but only for lines which
@@ -128,12 +130,12 @@ If we look at result 4, on line 4277, we can see that both Romeo and Juliet
 have died. If this makes you sad, you can instead search for `romeo and juliet
 not dead`, and get _6_ results instead:
 ```
-# romeo\_and\_juliet.txt, line 1
-# romeo\_and\_juliet.txt, line 2562
-# romeo\_and\_juliet.txt, line 2888
-# romeo\_and\_juliet.txt, line 4416
-# romeo\_and\_juliet.txt, line 4428
-# romeo\_and\_juliet.txt, line 4430
+# romeo_and_juliet.txt, line 1
+# romeo_and_juliet.txt, line 2562
+# romeo_and_juliet.txt, line 2888
+# romeo_and_juliet.txt, line 4416
+# romeo_and_juliet.txt, line 4428
+# romeo_and_juliet.txt, line 4430
 ```
 
 These results do not contain the lines containing the word `dead`.
@@ -141,7 +143,7 @@ These results do not contain the lines containing the word `dead`.
 An example of consecutive words could be `king lear hath lost`, which returns a
 single result:
 ```
-# king\_lear.txt, line 3827
+# king_lear.txt, line 3827
 ```
 
 On this line, we can see that King Lear hath indeed lost.
