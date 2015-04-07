@@ -1,0 +1,59 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]]; then
+		echo "Usage: $0 run_name"
+		exit
+fi
+
+RUN_NAME=$1
+
+GREEN="\033[1;32m"
+RESET="\033[0m"
+
+HADOOP_VER=1.2.1
+HADOOP_DIR=/home/ahota/workspace/hadoop/hadoop-$HADOOP_VER/
+
+HJAR="./bin/hadoop jar"
+HGET="./bin/hadoop dfs -get"
+
+HDFS_IN=/user/ahota/input/
+HDFS_OUT=/user/ahota/output/
+
+PROJ_DIR=/home/ahota/workspace/inverted_index
+
+JAR_FILE=$PROJ_DIR/src/invertedindex.jar
+PACKAGE=edu.utk.eecs.cs560.pa2
+WC=$PACKAGE.WordCount
+II=$PACKAGE.InvertedIndex
+
+#Preprocessing
+# - Add document ID and line number to all files
+# - Create JSON file with document ID mapping
+echo -e $GREEN"Preprocessing... $RESET"
+cd $PROJ_DIR/script
+./line_number.py &&
+		cp doc_ids.json $PROJ_DIR/out/
+
+#Hadoop jobs
+#Run WordCount
+echo -e $GREEN"Running Hadoop jobs... $RESET"
+cd $HADOOP_DIR
+$HJAR $JAR_FILE $WC $HDFS_IN/*.txt $HDFS_OUT/wc_$RUN_NAME &&
+		rm $PROJ_DIR/out/word_count.txt ;
+		$HGET $HDFS_OUT/wc_$RUN_NAME/part-00000 $PROJ_DIR/out/word_count.txt
+#Run InvertedIndex
+$HJAR $JAR_FILE $II $HDFS_IN/*.num $HDFS_OUT/ii_$RUN_NAME &&
+		rm $PROJ_DIR/out/inverted_index.txt ;
+		$HGET $HDFS_OUT/ii_$RUN_NAME/part-00000 $PROJ_DIR/out/inverted_index.txt
+
+#Postprocessing
+# - Convert text output to JSON for indexing
+echo -e $GREEN"Postprocessing... $RESET"
+cd $PROJ_DIR/out
+./hadoopOutputToJSON.py inverted_index.txt inverted_index.json
+
+
+echo -e $GREEN"Inverted indexing complete!"$RESET
+echo -e $GREEN"You can plot words by word count with out/plot.py"$RESET
+echo -e $GREEN"Run out/queryII.py for an interactive search shell"$RESET
+
