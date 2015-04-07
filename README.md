@@ -33,10 +33,12 @@ their Gutenberg header removed, but are otherwise unaltered. The corresponding
 ### Setup
 The text files provided by Gutenberg contain differing headers, which are
 multiple pages long. These were manually removed so that they don't interfere
-with word counting the plays. Additionally, we assumed users won't want to 
-query the header of the files. However, there are still additional intermediate
+with word counting the plays. Additionally, we assume users won't want to query 
+the header of the files. However, there are still additional intermediate
 Gutenberg copyright notices that would be difficult to remove. These would have
 influenced word count and stop word threshold.
+
+Currently we have 16 works by Shakespeare that are processed:
 
 ### Pre-processing
 We can use the raw text files to get word counts and to determine the stop word
@@ -45,12 +47,19 @@ and line number, since lines in files will get separated across datanodes. We
 add these in the pre-processing step.
 
 The script/line\_number.py executable adds document ID and line number to every 
-line in every .txt file in the txt/ directory. The document ID -> filename
-mapping is saved as a JSON file so that the results
+line in every .txt file in the txt/ directory. These are saved as .num files,
+which apart from the ID and line number are identical to their corresponding
+.txt file. The document ID -> filename mapping is saved as a JSON file so that
+we can print filenames during querying as opposed to IDs.
 
 ### Hadoop
-
+There are two Hadoop jobs that can be run. The first is WordCount, which simply
+creates a word frequency table. Our implementation is a slightly modified 
+version of the WordCount class provided with Hadoop. The output of this is
+essentially a space-delimited CSV file, which we can then parse with Python.
+The plot.py script in out/ allows you to generate a histogram of word counts.
+We visually analyzed this histogram to find our stop word threshold. 
 ### Post-processing
 
-## Running
+## Usage
 

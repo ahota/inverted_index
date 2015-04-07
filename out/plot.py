@@ -1,7 +1,16 @@
 #!/usr/bin/env python
 
-import csv, operator, sys
+import csv, operator, argparse
 from matplotlib import pyplot
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-n', '--noshow', help='do not show the figure',
+        action='store_true', default=False)
+parser.add_argument('-t', '--top', type=int,
+        help='restrict the top end of the plot', default=0)
+parser.add_argument('-b', '--bottom', type=int,
+        help='restrict the bottom end of the plot', default=20)
+plot_args = parser.parse_args()
 
 print 'Creating figure'
 
@@ -21,7 +30,6 @@ words  = []
 counts = []
 
 print 'Reading data'
-sys.stdout.flush()
 
 with open('word_count.txt', 'rb') as f:
     wc_reader = csv.reader(f, delimiter='\t')
@@ -38,12 +46,11 @@ print 'Sorting and truncating data list'
 
 data.sort(key=operator.itemgetter(1))
 #reverse and only look at top words
-top = 50
 data = data[::-1]
-data = data[top:top+100]
-
 #the first value ends up being whitespace
 data = data[1::]
+
+data = data[plot_args.top:plot_args.bottom]
 
 max_val = max([val[1] for val in data])
 print max_val
@@ -75,4 +82,5 @@ print 'Saving and displaying'
 
 fig = pyplot.gcf()
 fig.savefig('words.png', bbox_inches='tight')
-pyplot.show()
+if(not plot_args.noshow):
+    pyplot.show()
