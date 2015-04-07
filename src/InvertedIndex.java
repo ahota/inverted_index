@@ -82,7 +82,7 @@ public class InvertedIndex extends Configured implements Tool {
 	public static class Reduce extends MapReduceBase implements Reducer<Text, Text, Text, Text> {
 		private ArrayList<String> temp;
 		//threshold determined in word count step
-		private static final int threshold = 400;
+		private static final int threshold = 2000;
 
 		public void reduce(Text key, Iterator<Text> values, OutputCollector<Text, Text> output, Reporter reporter) throws IOException {
 			temp = new ArrayList<String>();
