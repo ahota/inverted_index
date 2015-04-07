@@ -113,7 +113,7 @@ item will open Vim at that line.
 ## Examples
 If we query for `romeo and juliet`, we get 8 results:
 
-<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/screen1.png"
+<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/screen2.png"
 alt="Search results for romeo and juliet"
 width="500px">
 
@@ -124,7 +124,7 @@ If we look at result 4, on line 4277, we can see that both Romeo and Juliet
 have died. If this makes you sad, you can instead search for `romeo and juliet
 not dead`, and get _6_ results instead:
 
-<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/screen2.png"
+<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/screen1.png"
 alt="Search results for romeo and juliet not dead"
 width="500px">
 
