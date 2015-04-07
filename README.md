@@ -105,7 +105,7 @@ Usage: `run <title>`
 The `<title>` argument is used to store the output of both jobs into unique
 directories to compare output between different runs of the project.
 
-To query the inverted index, run query.py located in out/. This will bring up an interactive
+To query the inverted index, run `query.py` located in `out/`. This will bring up an interactive
 terminal interface for querying. Simply enter a search query and hit enter. You
 will be presented with the results, if any, in a list. Hitting enter on any
 item will open Vim at that line.
