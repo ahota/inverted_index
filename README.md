@@ -63,8 +63,8 @@ which we can then parse with Python. The plot.py script in out/ allows you to
 generate a histogram of word counts. We visually analyzed this histogram to
 find our stop word threshold of 2000.
 
-[](https://github.com/ahota/inverted_index/blob/master/out/words.png "Plot
-of the 20-50th most frequent words")
+[](https://raw.githubusercontent.com/ahota/inverted_index/master/out/words.png
+"Plot of the 20-50th most frequent words")
 
 The second Hadoop job is InvertedIndex. This computes the inverted index of
 words in the corpus using the .num files. Each mapper receives a line. Since
