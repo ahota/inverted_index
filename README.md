@@ -112,16 +112,10 @@ item will open Vim at that line.
 
 ## Examples
 If we query for `romeo and juliet`, we get 8 results:
-```
-# romeo_and_juliet.txt, line 1
-# romeo_and_juliet.txt, line 2562
-# romeo_and_juliet.txt, line 2888
-# romeo_and_juliet.txt, line 4277
-# romeo_and_juliet.txt, line 4327
-# romeo_and_juliet.txt, line 4416
-# romeo_and_juliet.txt, line 4428
-# romeo_and_juliet.txt, line 4430
-```
+
+<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/screen1.png"
+alt="Search results for romeo and juliet"
+width="500px">
 
 Note that this does not search for "Romeo and Juliet", but only for lines which
 contain both "Romeo" and "Juliet". Sorry, hopeless romantics.
@@ -129,21 +123,17 @@ contain both "Romeo" and "Juliet". Sorry, hopeless romantics.
 If we look at result 4, on line 4277, we can see that both Romeo and Juliet
 have died. If this makes you sad, you can instead search for `romeo and juliet
 not dead`, and get _6_ results instead:
-```
-# romeo_and_juliet.txt, line 1
-# romeo_and_juliet.txt, line 2562
-# romeo_and_juliet.txt, line 2888
-# romeo_and_juliet.txt, line 4416
-# romeo_and_juliet.txt, line 4428
-# romeo_and_juliet.txt, line 4430
-```
+
+<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/screen2.png"
+alt="Search results for romeo and juliet not dead"
+width="500px">
 
 These results do not contain the lines containing the word `dead`.
 
 An example of consecutive words could be `king lear hath lost`, which returns a
 single result:
-```
-# king_lear.txt, line 3827
-```
+<img src="https://raw.githubusercontent.com/ahota/inverted_index/master/out/screen3.png"
+alt="Search results for king lear hath lost"
+width="500px">
 
 On this line, we can see that King Lear hath indeed lost.
